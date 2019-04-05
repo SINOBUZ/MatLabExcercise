@@ -6,9 +6,10 @@ index_perfect_num_6 = 0; % 찾은 끝자리 6 완전수 개수 (일련번호)
 index_perfect_num_28 = 0; % 찾은 끝자리 28 완전수 개수 (일련번호)
 i_6 = -4; % for문에 있던 증감 연산자 선언, 6-10 = -4
 i_28 = -72; % for문에 있던 증감 연산자 선언, 28-100 = -72
-%% 2. 알고리즘 실행 - 끝자리가 6
+%% 2. 알고리즘 실행 ? 끝자리가 6인 경우
 while index_perfect_num_6 + index_perfect_num_28 < n % 루프 기준 : 일련번호의 합
-  sum_val_6 = 0;  % 약수의 합 초기화
+    i_6 = i_6 + 10; % for문에 있던 i 증감 대체
+    sum_val_6 = 0;  % 약수의 합 초기화
     for j=1:(i_6-1) % 1부터 자신을 제외한 약수 찾기
         if (is_dividable(i_6,j)==true) % is_dividable.m 이용
             sum_val_6 = sum_val_6 + j; % 약수의 합
