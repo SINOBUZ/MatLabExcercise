@@ -35,4 +35,5 @@ for i=2:((2^n)-1) % 2부터 2^n-1까지 체크
     end
 end
 %% 3. 결과 출력
-prime_number_result % 화면에 소수 결과 출력
+disp(n + "비트로 표현될 수 있는 소수 개수 : " + index_prime); % 소수 개수 출력
+disp(n + "비트로 표현될 수 있는 최대 소수 : " + prime_number_result(index_prime)); % 최대 소수 출력
