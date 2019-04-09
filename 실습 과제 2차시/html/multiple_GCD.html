@@ -1,0 +1,120 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>multiple_GCD</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-10"><meta name="DC.source" content="multiple_GCD.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">0. &#49892;&#49845;&#44284;&#51228; 2&#48264; - &#50668;&#47084;&#44060;&#51032; &#52572;&#45824;&#44277;&#50557;&#49688; &#52286;&#44592; &#50508;&#44256;&#47532;&#51608;</a></li><li><a href="#2">1. &#54665;&#47148; &#51077;&#47141;</a></li><li><a href="#3">2. &#50508;&#44256;&#47532;&#51608; &#49892;&#54665;</a></li><li><a href="#4">3. &#44208;&#44284; &#52636;&#47141;</a></li></ul></div><h2 id="1">0. &#49892;&#49845;&#44284;&#51228; 2&#48264; - &#50668;&#47084;&#44060;&#51032; &#52572;&#45824;&#44277;&#50557;&#49688; &#52286;&#44592; &#50508;&#44256;&#47532;&#51608;</h2><pre class="codeinput">clear, clc; <span class="comment">% &#47749;&#47161; &#52285; &#52488;&#44592;&#54868;, &#47700;&#47784;&#47532; &#52488;&#44592;&#54868;</span>
+</pre><h2 id="2">1. &#54665;&#47148; &#51077;&#47141;</h2><pre class="codeinput"><span class="keyword">for</span> i=1:inf <span class="comment">% i&#51032; &#52572;&#45824;&#44050; &#51228;&#54620;&#51008; &#50630;&#51020;.</span>
+    N=input(<span class="string">'&#52572;&#45824;&#44277;&#50557;&#49688;&#47484; &#44228;&#49328;&#54624; &#49688;&#46308;&#51012; &#51077;&#47141;&#54616;&#49884;&#50724;(&#51077;&#47141;&#51060; &#45149;&#45228;&#51004;&#47732; 0 &#51077;&#47141;) : '</span>); <span class="comment">% &#48289;&#53552;&#51032; &#49688; &#49457;&#48516; N&#51012; &#51077;&#47141;&#48155;&#51020;</span>
+    <span class="keyword">if</span> N == 0 <span class="comment">% &#47564;&#50557; &#51077;&#47141; &#50756;&#47308; &#53076;&#46300; 0&#51012; &#51077;&#47141;&#48155;&#50520;&#45796;&#47732;</span>
+        i = i-1; <span class="comment">% &#51064;&#45937;&#49828; &#44060;&#49688;&#47484; &#47582;&#52628;&#44592; &#50948;&#54620; 1 &#52264;&#44048; &#54980;</span>
+        <span class="keyword">break</span>; <span class="comment">% for&#47928; &#53448;&#52636;</span>
+    <span class="keyword">end</span>
+    inputs(i)=N; <span class="comment">% inputs &#48289;&#53552;&#51032; &#51064;&#45937;&#49828; i&#48264;&#51704; &#49688;&#44032; &#51077;&#47141;&#48155;&#51008; N&#51060;&#45796;.</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">&#44221;&#44256;: FOR &#47336;&#54532; &#48152;&#48373; &#54943;&#49688;&#44032; &#45320;&#47924; &#47566;&#49845;&#45768;&#45796;. 9223372036854775806&#48264; &#48152;&#48373; &#54980;&#50640;&#45716; &#51473;&#51648;&#46121;&#45768;&#45796;. 
+</pre><pre class="codeoutput error">&#45796;&#51020; &#49324;&#50857; &#51473; &#50724;&#47448;&#44032; &#48156;&#49373;&#54632;: input
+EVALC&#50640;&#49436;&#45716; INPUT&#51012; &#54840;&#52636;&#54624; &#49688; &#50630;&#49845;&#45768;&#45796;.
+
+&#50724;&#47448; &#48156;&#49373;: multiple_GCD (line 5)
+    N=input('&#52572;&#45824;&#44277;&#50557;&#49688;&#47484; &#44228;&#49328;&#54624; &#49688;&#46308;&#51012; &#51077;&#47141;&#54616;&#49884;&#50724;(&#51077;&#47141;&#51060; &#45149;&#45228;&#51004;&#47732; 0 &#51077;&#47141;) : '); % &#48289;&#53552;&#51032; &#49688; &#49457;&#48516; N&#51012; &#51077;&#47141;&#48155;&#51020;
+</pre><h2 id="3">2. &#50508;&#44256;&#47532;&#51608; &#49892;&#54665;</h2><pre class="codeinput"><span class="keyword">if</span> i == 2 <span class="comment">% &#46160; &#49688;&#47564;&#51004;&#47196; &#44228;&#49328;&#54624; &#44221;&#50864;</span>
+    j = 1; <span class="comment">% &#44208;&#44284;&#44050;&#51012; &#53685;&#51068;&#54616;&#44592; &#50948;&#54620; j &#49440;&#50616;</span>
+    GCD_ans(j) = my_GCD3(inputs(j), inputs(j+1)); <span class="comment">% &#46160; &#49688;&#47564;&#51012; &#45824;&#49345;&#51004;&#47196; &#48708;&#44368;&#54632;</span>
+<span class="keyword">else</span> <span class="comment">% &#49464; &#49688; &#51060;&#49345;&#51012; &#44228;&#49328;&#54624; &#44221;&#50864;</span>
+<span class="keyword">for</span> j=1:i-2 <span class="comment">% &#51064;&#45937;&#49828; &#48276;&#50948; &#52488;&#44284;&#47484; &#48169;&#51648;&#54616;&#44592; &#50948;&#54644; i-2&#44620;&#51648;&#47564; &#47336;&#54532;</span>
+  GCD_TEMP = my_GCD3(inputs(j), inputs(j+1)); <span class="comment">% &#49464;&#44060; &#51060;&#49345;&#51032; &#49688;&#47484; &#48708;&#44368;&#54616;&#44592; &#50948;&#54620; &#51076;&#49884; &#52572;&#45824;&#44277;&#50557;&#49688;</span>
+  GCD_ans(j) = my_GCD3(inputs(j+2), GCD_TEMP); <span class="comment">% &#51076;&#49884; &#52572;&#45824;&#44277;&#50557;&#49688;&#50752; &#44536; &#45796;&#51020; &#49688;&#50752;&#51032; &#52572;&#45824;&#44277;&#50557;&#49688;</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="4">3. &#44208;&#44284; &#52636;&#47141;</h2><pre class="codeinput">disp(<span class="string">"&#51077;&#47141;&#46108; &#49688;&#46308;&#51032; &#52572;&#45824;&#44277;&#50557;&#49688;&#45716; "</span> + GCD_ans(j)); <span class="comment">% &#52572;&#51333; &#44208;&#44284;&#44050; &#52636;&#47141;</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 0. 실습과제 2번 - 여러개의 최대공약수 찾기 알고리즘
+clear, clc; % 명령 창 초기화, 메모리 초기화
+%% 1. 행렬 입력
+for i=1:inf % i의 최대값 제한은 없음.
+    N=input('최대공약수를 계산할 수들을 입력하시오(입력이 끝났으면 0 입력) : '); % 벡터의 수 성분 N을 입력받음
+    if N == 0 % 만약 입력 완료 코드 0을 입력받았다면
+        i = i-1; % 인덱스 개수를 맞추기 위한 1 차감 후
+        break; % for문 탈출
+    end
+    inputs(i)=N; % inputs 벡터의 인덱스 i번째 수가 입력받은 N이다.
+end
+%% 2. 알고리즘 실행
+if i == 2 % 두 수만으로 계산할 경우
+    j = 1; % 결과값을 통일하기 위한 j 선언
+    GCD_ans(j) = my_GCD3(inputs(j), inputs(j+1)); % 두 수만을 대상으로 비교함
+else % 세 수 이상을 계산할 경우
+for j=1:i-2 % 인덱스 범위 초과를 방지하기 위해 i-2까지만 루프
+  GCD_TEMP = my_GCD3(inputs(j), inputs(j+1)); % 세개 이상의 수를 비교하기 위한 임시 최대공약수
+  GCD_ans(j) = my_GCD3(inputs(j+2), GCD_TEMP); % 임시 최대공약수와 그 다음 수와의 최대공약수
+end
+end
+%% 3. 결과 출력
+disp("입력된 수들의 최대공약수는 " + GCD_ans(j)); % 최종 결과값 출력
+##### SOURCE END #####
+--></body></html>

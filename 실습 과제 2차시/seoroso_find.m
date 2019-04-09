@@ -1,16 +1,18 @@
-clear, clc;
-N = input('서로소 탐색 최대값 N을 입력하시오 : ');
-index=0;
-
-for i=2:N
-    for j = i+1:N
-        if my_GCD3(i,j)==1
-            index=index+1;
-            seoroso(index,1)=i;
-            seoroso(index,2)=j;
+%% 0. 실습과제 1번 - 서로소 쌍 찾기 알고리즘
+clear, clc; % 명령 창 초기화, 메모리 초기화
+%% 1. 입력 및 선언
+N = input('서로소 탐색 최대값 N을 입력하시오 : '); % 최대값 입력받음
+index=0; % 행렬 인덱스 카운터 0 선언
+%% 2. 알고리즘 실행
+for i=2:N % 2부터 최대값 N까지 루프
+    for j = i+1:N % i과 같은 값부터 루프 시 서로소가 아닌 쌍이 나오므로 i+1부터 루프
+        if my_GCD3(i,j)==1 % i, j의 최대공약수가 1이면
+            index=index+1; % 서로소 순서쌍 행 카운터 1 증가 
+            seoroso(index,1)=i; % 순서쌍의 1열에 i 대입
+            seoroso(index,2)=j; % 순서쌍의 2열에 j 대입
         end
     end
 end
-
-disp(N + "까지의 모든 서로소 쌍 : "); disp(seoroso);
-disp(N + "까지의 모든 서로소 쌍의 개수 : " + index);
+%% 3. 결과 출력
+disp(N + "까지의 모든 서로소 쌍 : "); disp(seoroso); % 서로소 순서쌍 출력
+disp(N + "까지의 모든 서로소 쌍의 개수 : " + index); % 서로소 순서쌍 개수 출력

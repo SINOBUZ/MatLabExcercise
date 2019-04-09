@@ -1,17 +1,23 @@
-clear, clc;
-% N = input('서로소 탐색 최대값 N을 입력하시오 : ');
-for i=1:inf
-    N=input('최대공약수를 계산할 수들을 입력하시오(입력이 끝났으면 0 입력) : ');
-    if N == 0
-        i = i-1;
-        break;
+%% 0. 실습과제 2번 - 여러개의 최대공약수 찾기 알고리즘
+clear, clc; % 명령 창 초기화, 메모리 초기화
+%% 1. 행렬 입력
+for i=1:inf % i의 최대값 제한은 없음.
+    N=input('최대공약수를 계산할 수들을 입력하시오(입력이 끝났으면 0 입력) : '); % 벡터의 수 성분 N을 입력받음
+    if N == 0 % 만약 입력 완료 코드 0을 입력받았다면
+        i = i-1; % 인덱스 개수를 맞추기 위한 1 차감 후
+        break; % for문 탈출
     end
-    inputs(i)=N;
+    inputs(i)=N; % inputs 벡터의 인덱스 i번째 수가 입력받은 N이다.
 end
-
-for j=1:i-2
-  GCD_TEMP = my_GCD3(inputs(j), inputs(j+1));
-  GCD_ans(j) = my_GCD3(inputs(j+2), GCD_TEMP);
+%% 2. 알고리즘 실행
+if i == 2 % 두 수만으로 계산할 경우
+    j = 1; % 결과값을 통일하기 위한 j 선언
+    GCD_ans(j) = my_GCD3(inputs(j), inputs(j+1)); % 두 수만을 대상으로 비교함
+else % 세 수 이상을 계산할 경우
+for j=1:i-2 % 인덱스 범위 초과를 방지하기 위해 i-2까지만 루프
+  GCD_TEMP = my_GCD3(inputs(j), inputs(j+1)); % 세개 이상의 수를 비교하기 위한 임시 최대공약수
+  GCD_ans(j) = my_GCD3(inputs(j+2), GCD_TEMP); % 임시 최대공약수와 그 다음 수와의 최대공약수
 end
-
-disp("입력된 수들의 최대공약수는 " + GCD_ans(j));
+end
+%% 3. 결과 출력
+disp("입력된 수들의 최대공약수는 " + GCD_ans(j)); % 최종 결과값 출력
